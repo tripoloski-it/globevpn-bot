@@ -1,0 +1,43 @@
+0. У себя отредактируй файл .env в папке с ботом:
+  TELEGRAM_BOT_TOKEN=ТВОЙ_ТОКЕН_ОТ_БОТА
+  POSTGRES_URL=postgresql://postgres:ТВОЙ_ПАРОЛЬ_ОТ_БД@localhost:5432/globevpn?schema=public
+  OWNER_IDS=ТВОЙ_АЙДИ_ТЕЛЕГРАММ
+  MARZBAN_BASE_URL=https://api.globevpn.ru:50089/api/
+  MARZBAN_USERNAME=admin
+  MARZBAN_PASSWORD=wEx5azKHl9
+  YOOKASSA_TOKEN=ТОКЕН_ЮКАССА_ПОЛУЧЕННЫЙ_ОТ_БОТ_ФАЗЕРА
+  
+1. Через filezilla закинуть все файлы на сервер в любую папку (Рекомендую создать)
+2. Открыть консоль (CMD)
+3. Прописать: ssh ИМЯ_ЮЗЕРА@АЙПИ_СЕРВЕРА
+  При первом подключении он спросит "Добавить ли ключ в кэш?", нажми "Y" (Да) или "N" (Нет)
+
+4. Установи Node.JS
+  1. sudo apt install curl
+  2. curl -fsSL https://deb.nodesource.com/setup_20.x | sudo -E bash -
+  3. sudo apt update -y
+  4. sudo apt install nodejs
+  5. Проверить установку: node -v && npm -v
+
+5. Установка PostgreSQL
+  1. sudo apt-get install postgresql postgresql-contrib
+  2. Зайди в консоль базы
+    1. psql -U postgres 
+    2. Введи: ALTER USER postgres WITH PASSWORD 'ТВОЙ_ПАРОЛЬ_ОТ_БД';
+    3. Введи: \q
+
+6. Перейди в папку с ботом:
+  1. cd ПАПКА_ГДЕ_БОТ
+  2. Пропиши: npm install
+  3. Пропиши: npm install -g typescript pm2
+  4. Пропиши: pm2 install pm2-logrotate
+  5. Пропиши: pm2 set pm2-logrotate:rotateInterval '0 0 * * *'
+  6. Пропиши: npm run build
+  7. Пропиши: npm run start:prod 
+
+ВСЁ БОТ РАБОТАЕТ.
+
+Захочешь изменить текста у кнопок или у сообщений, отредактируй locales/ru.ftl
+Затем перезагрузи бота: pm2 restart vpnbot
+Логи бота: pm2 logs vpnbot
+Остановить бота: pm2 stop vpnbot
